@@ -1,105 +1,108 @@
 package main
 
 import (
-	"unicode/utf8"
+	"./tptnmatch"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"os"
+	"path/filepath"
 )
 
-type TrieEdge struct {
-	symbol rune // Keep symbol also in edge in order to not jump in memory much and check symbol without following edges
-	node   *TrieNode
+func FileNameForURL(fileURL string) string {
+	u, err := url.Parse(fileURL)
+	if err != nil {
+		panic(err)
+	}
+	return url.PathEscape(u.Path)
 }
 
-type TrieNode struct {
-	edges  []TrieEdge
-	parent *TrieNode
-	rune   rune
+func GetCacheFileName(fileURL string) string {
+	return fmt.Sprintf("/tmp/TextPatternMatch/%s", FileNameForURL(fileURL))
 }
 
-type Trie struct {
-	root TrieNode
+func DownloadText(textFileURL string) ([]byte, error) {
+	// Failure, download text
+	resp, err := http.Get(textFileURL)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
 
-func (self *TrieNode) EdgeForRune(r rune) *TrieEdge {
-	// Iterating with index appeared to be faster than with range.
-	for idx := 0; idx < len(self.edges); idx++ {
-		if self.edges[idx].symbol == r {
-			return &self.edges[idx]
-		}
+func TryReadFromCache(URI string) (string, error) {
+	cacheData, err := ioutil.ReadFile(GetCacheFileName(URI))
+	if err != nil {
+		return "", err
+	}
+	return string(cacheData), nil
+}
+
+func WriteIntoCache(URI string, data []byte) error {
+	// Try to put into cache
+	if err := os.MkdirAll(filepath.Dir(GetCacheFileName(URI)), 0744); err != nil {
+		return err
+	}
+	if err := ioutil.WriteFile(GetCacheFileName(URI), data, 0644); err != nil {
+		return err
 	}
 	return nil
 }
 
-func (self *TrieNode) IsLeave() bool {
-	return len(self.edges) == 0
+func GetTextByURI(URI string) (string, error) {
+	fromCache, err := TryReadFromCache(URI)
+	if err == nil {
+		return fromCache, nil
+	}
+
+	body, err := DownloadText(URI)
+	if err != nil {
+		fmt.Printf("ERROR: download failed. Error: %v\n", err)
+		return "", err
+	}
+
+	// (try to) Put into cache
+	if err := WriteIntoCache(URI, body); err != nil {
+		fmt.Printf("WARNING: Failed writing into cache. Error: %v\n", err)
+	}
+
+	return string(body), nil
 }
 
-func (self *TrieNode) GetCurrentPattern() string {
-	if !self.IsLeave() {
-		panic("Unexpected usage")
-	}
-	sequence := make([]rune, 0, 128)
-	for node := self; node != nil; node = node.parent {
-		sequence = append(sequence, node.rune)
-	}
-	// Note, last rune in sequence is root's 0 rune, just not take into consideration it.
-	sequence = sequence[:len(sequence)-1 ]
-
-	// Sequence contains reversed pattern, read runes backwards and construct pattern string
-	reversedSequence := make([]rune, len(sequence))
-	for i := 0; i < len(sequence); i++ {
-		reversedSequence[i] = sequence[len(sequence)-1-i]
-	}
-	return string(reversedSequence)
-}
-
-func BuildTrie(patterns []string) Trie {
-	result := Trie{}
-	root := &result.root
-	for _, pattern := range patterns {
-		currentNode := root
-		for _, symbol := range pattern {
-			// Try to find existing edge for symbol
-			if symbolEdge := currentNode.EdgeForRune(symbol); symbolEdge != nil {
-				currentNode = symbolEdge.node
-			} else {
-				// not found, insert new node.
-				newNode := TrieNode{parent: currentNode, rune: symbol}
-				newEdge := TrieEdge{symbol: symbol, node: &newNode}
-				currentNode.edges = append(currentNode.edges, newEdge)
-				currentNode = &newNode
-			}
-		}
-	}
-	return result
-}
-
-type MatchCallback func(string)
-
-func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
-	currentNode := &trie.root
-	for _, rune := range text {
-		if edge := currentNode.EdgeForRune(rune); edge != nil {
-			currentNode = edge.node
-			if currentNode.IsLeave() {
-				matchCb(currentNode.GetCurrentPattern())
-				return
-			}
-		} else {
-			// Could not match next rune in trie.
-			return
-		}
-	}
-}
-
-func TrieMatching(text string, trie Trie, matchCb MatchCallback) {
-	for len(text) > 0 {
-		PrefixTrieMatching(text, trie, matchCb)
-		// Trim first character of the text
-		_, runeSize := utf8.DecodeRuneInString(text)
-		text = text[runeSize:]
-	}
+func GetPatterns() []string {
+	return []string{
+		"the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as",
+		"you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will",
+		"my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which",
+		"go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "people", "into",
+		"year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come",
+		"its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "well", "way",
+		"even", "new", "want", "because", "any", "these", "give", "day", "most", "us"}
 }
 
 func main() {
-	// See test.
+	text, err := GetTextByURI("https://www.gutenberg.org/cache/epub/1112/pg1112.txt")
+	if err != nil {
+		fmt.Errorf("ERROR: Failed downloading sample text, check connection. Error: %v", err)
+		return
+	}
+	matchCount := 0
+	tptnmatch.MatchTextAgainstTrie(text, tptnmatch.BuildTrie(GetPatterns()), func(s string) {
+		matchCount++
+	})
+	if matchCount != 14670 {
+		fmt.Errorf("Match Count Expected 14760, got: %d\n", matchCount)
+		return
+	}
+
+	fmt.Println("Passed")
 }
