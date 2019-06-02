@@ -11,6 +11,7 @@ type TrieNode struct {
 	edges  []TrieEdge
 	parent *TrieNode
 	rune   rune
+	patternEnding bool
 }
 
 type Trie struct {
@@ -32,7 +33,7 @@ func (self *TrieNode) IsLeave() bool {
 }
 
 func (self *TrieNode) GetCurrentPattern() string {
-	if !self.IsLeave() {
+	if !self.IsLeave() && !self.patternEnding {
 		panic("Unexpected usage")
 	}
 	sequence := make([]rune, 0, 128)
@@ -67,6 +68,7 @@ func BuildTrie(patterns []string) Trie {
 				currentNode = &newNode
 			}
 		}
+		currentNode.patternEnding = true
 	}
 	return result
 }
@@ -84,6 +86,10 @@ func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
 			}
 		} else {
 			// Could not match next rune in trie.
+			if currentNode.patternEnding {
+				matchCb(currentNode.GetCurrentPattern())
+				return
+			}
 			return
 		}
 	}
