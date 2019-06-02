@@ -10,11 +10,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../TextPatternMatch/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+            <state relative-caret-position="441">
+              <caret line="100" column="5" selection-start-line="98" selection-start-column="41" selection-end-line="100" selection-end-column="5" />
               <folding>
                 <element signature="e#14#42#0" expanded="true" />
                 <marker date="1559472450315" expanded="true" signature="2379:2380" ph="..." />
@@ -26,8 +26,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../TextPatternMatch/tptnmatch/tptnmatch.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" selection-start-column="8" selection-end-column="17" />
+            <state relative-caret-position="512">
+              <caret line="91" column="25" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../TextPatternMatch/tptnmatch/tptnmatch_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -45,6 +54,7 @@
     <findStrings>
       <find>GetSampleText</find>
       <find>getPath</find>
+      <find>MatchTextAgainstTrie</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -63,6 +73,7 @@
         <option value="$PROJECT_DIR$/tptnmatch/tptnmatch.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/../TextPatternMatch/main.go" />
+        <option value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch/tptnmatch_test.go" />
       </list>
     </option>
   </component>
@@ -125,60 +136,90 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.go test TextPatternMatch/tptnmatch">
+    <configuration name="TestCanMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="TriePrefixMatch" />
-      <working_directory value="$PROJECT_DIR$/../TextPatternMatch" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/../TextPatternMatch/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="TriePrefixMatch" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="TriePrefixMatch" />
-      <pattern value="^TestMatchingMostPopularWordsInRomeoAndJuliet$" />
+      <package value="TextPatternMatch/tptnmatch" />
+      <pattern value="^TestCanMatchOverlappingPrefixes$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCanMatchUnicode in TextPatternMatch/tptnmatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="TriePrefixMatch" />
+      <working_directory value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="TextPatternMatch/tptnmatch" />
+      <pattern value="^TestCanMatchUnicode$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="TriePrefixMatch" />
+      <working_directory value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="TextPatternMatch/tptnmatch" />
+      <pattern value="^TestCannotMatchOverlappingPrefixes$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test TextPatternMatch/tptnmatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="TriePrefixMatch" />
+      <working_directory value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="TextPatternMatch/tptnmatch" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gobench TextPatternMatch/tptnmatch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="TriePrefixMatch" />
+      <working_directory value="$PROJECT_DIR$/../TextPatternMatch/tptnmatch" />
+      <framework value="gobench" />
+      <kind value="PACKAGE" />
+      <package value="TextPatternMatch/tptnmatch" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Test.TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" />
+        <item itemvalue="Go Test.go test TextPatternMatch/tptnmatch" />
+        <item itemvalue="Go Test.gobench TextPatternMatch/tptnmatch" />
+        <item itemvalue="Go Test.TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" />
+        <item itemvalue="Go Test.TestCanMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" />
+        <item itemvalue="Go Test.TestCanMatchUnicode in TextPatternMatch/tptnmatch" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 12h 52m 49s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCanMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 27m 12s.xml">
+      <configuration name="TestCanMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 00m 08s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCanMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 27m 36s.xml">
+      <configuration name="TestCanMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 00m 47s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCannotMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 27m 41s.xml">
+      <configuration name="TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 01m 18s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCannotMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 27m 59s.xml">
+      <configuration name="TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 02m 39s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCannotMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 28m 20s.xml">
+      <configuration name="TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 03m 36s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCannotMatchOverlappingPrefixes_in_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 29m 16s.xml">
+      <configuration name="TestCannotMatchOverlappingPrefixes in TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 21m 07s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="go_test_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 29m 22s.xml">
+      <configuration name="go test TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 21m 10s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="gobench_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 29m 28s.xml">
+      <configuration name="gobench TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 38m 38s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="go_test_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 29m 33s.xml">
+      <configuration name="go test TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestMatchingMostPopularWordsInRomeoAndJuliet_in_TriePrefixMatch - 2019.06.02 at 13h 38m 56s.xml">
-      <configuration name="TestMatchingMostPopularWordsInRomeoAndJuliet in TriePrefixMatch" configurationId="GoTestRunConfiguration" />
+    <history-entry file="go_test_TextPatternMatch_tptnmatch - 2019.06.02 at 14h 43m 00s.xml">
+      <configuration name="go test TextPatternMatch/tptnmatch" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -193,10 +234,10 @@
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Profiler" weight="0.66496813" />
       <window_info anchor="bottom" id="Terminal" weight="0.3299363" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50071734" side_tool="true" weight="0.3299363" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299363" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3299363" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49928263" weight="0.3299363" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -265,19 +306,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../TextPatternMatch/tptnmatch/tptnmatch.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="17" selection-start-column="8" selection-end-column="17" />
+        <state relative-caret-position="512">
+          <caret line="91" column="25" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TextPatternMatch/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        <state relative-caret-position="441">
+          <caret line="100" column="5" selection-start-line="98" selection-start-column="41" selection-end-line="100" selection-end-column="5" />
           <folding>
             <element signature="e#14#42#0" expanded="true" />
             <marker date="1559472450315" expanded="true" signature="2379:2380" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TextPatternMatch/tptnmatch/tptnmatch_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
         </state>
       </provider>
     </entry>
