@@ -27,12 +27,12 @@ func TestCanMatchUnicode(t *testing.T) {
 func TestCanMatchOverlappingPrefixes(t *testing.T) {
 	var matchedPatterns []string
 
-	MatchTextAgainstTrie("🔥 neutralize by 🔥fighter 🔥f",
-		BuildTrie([]string{"🔥", "🔥fighter"}), func(p string) {
+	MatchTextAgainstTrie("🔥 neutralized by 🔥fighter 🔥f",
+		BuildTrie([]string{"🔥", "🔥fighter", "neutralize", "neut"}), func(p string) {
 			matchedPatterns = append(matchedPatterns, p)
 		})
 
-	expectedMatches := []string{"🔥", "🔥fighter"} // 🔥f is partial prefix and should not match.
+	expectedMatches := []string{"🔥", "neutralize", "🔥fighter"} // 🔥f is partial prefix and should not match.
 
 	if len(expectedMatches) != len(matchedPatterns) {
 		t.Fatalf("Expected %d matches got %d\n", len(expectedMatches), len(matchedPatterns))

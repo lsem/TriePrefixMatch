@@ -86,6 +86,7 @@ func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
 			}
 		} else if currentNode.patternEnding {
 			matchCb(currentNode.GetCurrentPattern())
+			return
 		} else {
 			return
 		}
