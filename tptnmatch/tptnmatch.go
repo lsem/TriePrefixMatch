@@ -8,9 +8,9 @@ type TrieEdge struct {
 }
 
 type TrieNode struct {
-	edges  []TrieEdge
-	parent *TrieNode
-	rune   rune
+	edges         []TrieEdge
+	parent        *TrieNode
+	rune          rune
 	patternEnding bool
 }
 
@@ -77,19 +77,16 @@ type MatchCallback func(string)
 
 func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
 	currentNode := &trie.root
-	for _, rune := range text {
-		if edge := currentNode.EdgeForRune(rune); edge != nil {
+	for _, r := range text {
+		if edge := currentNode.EdgeForRune(r); edge != nil {
 			currentNode = edge.node
 			if currentNode.IsLeave() {
 				matchCb(currentNode.GetCurrentPattern())
 				return
 			}
+		} else if currentNode.patternEnding {
+			matchCb(currentNode.GetCurrentPattern())
 		} else {
-			// Could not match next rune in trie.
-			if currentNode.patternEnding {
-				matchCb(currentNode.GetCurrentPattern())
-				return
-			}
 			return
 		}
 	}
@@ -103,4 +100,3 @@ func MatchTextAgainstTrie(text string, trie Trie, matchCb MatchCallback) {
 		text = text[runeSize:]
 	}
 }
-
