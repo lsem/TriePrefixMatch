@@ -75,12 +75,13 @@ func BuildTrie(patterns []string) Trie {
 
 type MatchCallback func(string)
 
-func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
+func PrefixTrieMatching(text string, textSize int, trie Trie, matchCb MatchCallback) {
 	currentNode := &trie.root
-	for _, r := range text {
+	for runeIdx, r := range text {
 		if edge := currentNode.EdgeForRune(r); edge != nil {
 			currentNode = edge.node
-			if currentNode.IsLeave() {
+			// Either leave of tree or matched last character of text with last character of pattern
+			if currentNode.IsLeave() || ((runeIdx == textSize-1) && currentNode.patternEnding) {
 				matchCb(currentNode.GetCurrentPattern())
 				return
 			}
@@ -94,10 +95,13 @@ func PrefixTrieMatching(text string, trie Trie, matchCb MatchCallback) {
 }
 
 func MatchTextAgainstTrie(text string, trie Trie, matchCb MatchCallback) {
+	// Pass size to not make our algorithm O(N^2)
+	textSize := utf8.RuneCountInString(text)
 	for len(text) > 0 {
-		PrefixTrieMatching(text, trie, matchCb)
+		PrefixTrieMatching(text, textSize, trie, matchCb)
 		// Trim first character of the text
 		_, runeSize := utf8.DecodeRuneInString(text)
 		text = text[runeSize:]
+		textSize--
 	}
 }
